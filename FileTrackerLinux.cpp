@@ -29,7 +29,7 @@ FileTrackerLinux::~FileTrackerLinux() = default;
 
 void FileTrackerLinux::track_directory(const std::string& directory, EventHandlerFn handler)
 {
-	int wd = inotify_add_watch(m_FD, directory.c_str(), IN_CLOSE_WRITE);
+	const auto wd = inotify_add_watch(m_FD, directory.c_str(), IN_CLOSE_WRITE);
 	if (wd < 0)
 		throw std::runtime_error(strerror(errno));
 
