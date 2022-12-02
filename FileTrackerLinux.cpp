@@ -29,7 +29,7 @@ FileTrackerLinux::~FileTrackerLinux() = default;
 
 void FileTrackerLinux::track_directory(const std::string& directory, EventHandlerFn handler)
 {
-	int wd = inotify_add_watch(m_FD, directory.c_str(), IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MOVED_FROM | IN_DELETE);
+	int wd = inotify_add_watch(m_FD, directory.c_str(), IN_CLOSE_WRITE);
 	if (wd < 0)
 		throw std::runtime_error(strerror(errno));
 
@@ -80,7 +80,7 @@ void FileTrackerLinux::handle_on_close(inotify_event* event)
 {
 	assert(event);
 
-	if (IN_CLOSE & event->mask)
+	if (IN_CLOSE_WRITE & event->mask)
 	{
 		auto& [dir, handler] = m_trackers[event->wd];
 		std::string file_name(event->name, event->len);
