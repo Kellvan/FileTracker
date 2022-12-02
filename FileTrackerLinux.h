@@ -33,7 +33,7 @@ public:
 	void check();
 
 private:
-    /// A default constructor.
+	/// A default constructor.
 	FileTrackerLinux();
 
 	/// Checks that the event is on close and calls related handler
@@ -48,7 +48,7 @@ private:
 
 	/// inotify file descriptor.
 	int m_FD;
-	
+
 	/// File descriptor set.
 	fd_set m_descriptor_set;
 };
